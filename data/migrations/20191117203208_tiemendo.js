@@ -70,7 +70,7 @@ exports.up = function(knex) {
 
       tbl.text('payment_date');
 
-      tbl.float('loan_amt')
+      tbl.float('payment_amt')
          .unsigned()
          .notNullable();
 
@@ -78,5 +78,8 @@ exports.up = function(knex) {
 };
 
 exports.down = function(knex) {
-  
+  return knex.schema.dropTableIfExists('payments')
+                     .dropTableIfExists('loans')
+                     .dropTableIfExists('clients')
+                     .dropTableIfExists('users')
 };
