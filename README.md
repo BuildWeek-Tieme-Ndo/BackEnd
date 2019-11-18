@@ -18,6 +18,8 @@
     
     This project is a hypothetical backend for an internal app;employees of Tieme Ndo could use
      the app to manage their clients and client loans in one location, easily accessible from anywhere. 
+     
+     The backend is hosted at https://tiemendo.herokuapp.com/
 
 ## Tables
 
