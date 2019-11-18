@@ -7,15 +7,15 @@ exports.seed = function(knex) {
       return knex("users").insert([
         {
           id: 1,
-          name: "Jones Osei",
-          password: "osei111",
-          email: "josei@tiemendo.com"
+          name: "Jacob Charter",
+          password: "$2a$14$w11faNEk35f7Ea0jXzJVnuzcpxEIZYqiRKrTV9rTelLMs69pSwb9W",
+          email: "jcharter@tiemendo.com"
         },
         {
           id: 2,
-          name: "Bernice Dosoo",
-          password: "password",
-          email: "bdosoo@tiemendo.com"
+          name: "Bernice Osei",
+          password: "$2a$14$lfCkzo1QLqPHpf56rvMPmO3E/KMVvB9fyXKFP40.iHM8sLQGOK5/K",
+          email: "bosei@tiemendo.com"
         }
       ]);
     });
