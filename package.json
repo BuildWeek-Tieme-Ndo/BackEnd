@@ -7,9 +7,9 @@
     "server": "nodemon",
     "start": "node index.js",
     "test": "cross-env DB_ENV=testing jest --watch"
-    },
+  },
   "keywords": [],
-  "author": "",
+  "author": "Britt Moyers",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -19,6 +19,7 @@
     "helmet": "^3.21.2",
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.20.2",
+    "pg": "^7.12.1",
     "sqlite3": "^4.1.0"
   },
   "devDependencies": {
