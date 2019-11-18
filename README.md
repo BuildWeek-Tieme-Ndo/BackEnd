@@ -28,6 +28,6 @@
 ### Onboarding Routes
 |     Route     |               Input Data               | Expected Return |
 | ------------- | -------------------------------------- | --------------- |
-| /api/register | {<br> name: 'required/unique',<br> password: 'required/unique', <br> email: 'required/unique'<br>} | {<br> status: 201 - Created, <br> message: success message<br>} |
+| /api/register | {<br> name: 'required/unique',<br> password: 'required', <br> email: 'required/unique'<br>} | {<br> status: 201 - Created, <br> message: success message<br>} |
 | /api/login | {<br> email: 'required',<br> password: 'required'<br>} | {<br> status: 200 - OK, <br> message: success message,<br>payload: token<br>} |
 
