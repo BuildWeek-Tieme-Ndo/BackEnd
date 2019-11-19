@@ -7,7 +7,6 @@ const db = require("../models/users-model");
 const restricted = require("../middleware/restricted-middleware");
 const {
   validateRegistration,
-  validateUser,
   getJwtToken
 } = require("../middleware/users-validation");
 
@@ -46,9 +45,7 @@ router.post("/register", (req, res) => {
 
 router.post("/login", (req, res) => {
   let { email, password } = req.body;
-  const validateResult = validateUser(req.body);
 
-  if (validateResult === true) {
     db.findBy({ email })
       .first()
       .then(user => {
@@ -68,12 +65,6 @@ router.post("/login", (req, res) => {
         console.log(err.toString());
         res.status(500).json({ message: "Failed to log in. try again later" });
       });
-  } else {
-    res.status(400).json({
-      message: "User info is invalid. See errors for details.",
-      errors: validateResult.errors
-    });
-  }
 });
 
 //exports
