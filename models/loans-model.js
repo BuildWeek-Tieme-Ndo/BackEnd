@@ -12,6 +12,7 @@ module.exports = {
   removeLoan
 };
 
+
 //helper functions
 
 function findLoans() {

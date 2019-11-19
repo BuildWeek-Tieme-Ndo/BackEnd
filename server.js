@@ -18,7 +18,7 @@ server.use(cors());
 //routes
 server.use('/api', usersRouter);
 server.use('/api/auth/clients', clientsRouter)
-server.use('/api/auth/clients/:id/loans', loansRouter)
+server.use('/api/auth/loans', loansRouter)
 
 //server test
 server.get('/', (req, res) => {
