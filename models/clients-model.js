@@ -12,12 +12,10 @@ module.exports = {
     removeClient
 };
 
-function findClient(user) {
-   const ID = user.userId;
-   console.log('ID', ID)
+function findClient(ID) {
     return db('clients as c')
               .join('users as u', 'c.user_id', 'u.id')
-              .select('c.id', 'u.id', 'c.name', 'c.village')
+              .select('c.id', 'c.name', 'c.village')
               .where({ user_id: ID })
               
 }

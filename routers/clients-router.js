@@ -29,14 +29,25 @@ router.post('/', (req, res) => {
 })
 
 router.get('/', (req, res) => {
-    const user = req.body;
-    console.log('user body', user)
-    db.findClient(user)
+    const ID = req.body.user_id;
+    db.findClient(ID)
         
         .then(clients => {
             clients
                 ? res.status(200).json(clients)
                 : res.status(404).json({ message: "Could not find any clients for this user" })
+        })
+        .catch(err => res.status(500).json({ message: "Could not retrieve clients; please try again later" }))
+})
+
+router.get('/:id', (req, res) => {
+    const { id } = req.params;
+    db.findClientById(id)
+        
+        .then(client => {
+            client
+                ? res.status(200).json(client)
+                : res.status(404).json({ message: "Could not find a client with that id" })
         })
         .catch(err => res.status(500).json({ message: "Could not retrieve clients; please try again later" }))
 })
