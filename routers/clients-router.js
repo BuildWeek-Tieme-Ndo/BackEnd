@@ -73,5 +73,18 @@ router.put('/:id', (req, res) => {
     }
 })
 
+router.delete('/:id', (req, res) =>{
+    const { id } = req.params;
+    db.removeClient(id)
+    .then(clients => {
+        res.status(200).json({ message: 'client deleted'})
+    })
+    .catch(err => {
+        console.log(err.toString());
+        res.status(500).json({ message: 'Failed to delete user', error: err})
+    })
+})
+
+
 //export
 module.exports = router;
