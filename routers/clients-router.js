@@ -49,7 +49,28 @@ router.get('/:id', (req, res) => {
                 ? res.status(200).json(client)
                 : res.status(404).json({ message: "Could not find a client with that id" })
         })
-        .catch(err => res.status(500).json({ message: "Could not retrieve clients; please try again later" }))
+        .catch(err => res.status(500).json({ message: "Could not retrieve client; please try again later" }))
+})
+
+router.put('/:id', (req, res) => {
+    const { id } = req.params
+    const client = req.body;
+    const validateResult = validateClient(client)
+    if (validateResult.isSuccessful === true){
+    db.updateClient(id,client)
+      .then(client => {
+          res.status(200).json(client);
+      })
+      .catch(err => {
+          console.log(err.toString());
+          res.status(500).json({ message: 'Failed to update client', error: err})
+      })
+    } else {
+         res.status(400).json({
+      message: "client info is invalid. See errors for details.",
+      errors: validateResult.errors
+    });
+    }
 })
 
 //export
