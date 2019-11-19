@@ -8,7 +8,7 @@ const restricted = require("../middleware/restricted-middleware");
 const { validateClient } = require('../middleware/data-validation')
 
 //endpoints
-router.post('/', (req, res) => {
+router.post('/', restricted, (req, res) => {
     const client = req.body;
     const validateResult = validateClient(client)
     if (validateResult.isSuccessful === true){
@@ -28,9 +28,8 @@ router.post('/', (req, res) => {
     }
 })
 
-router.get('/', (req, res) => {
-    const ID = req.body.id;
-    db.findClient(ID)
+router.get('/',restricted, (req, res) => {
+    db.findClient()
         
         .then(clients => {
             clients
@@ -40,7 +39,7 @@ router.get('/', (req, res) => {
         .catch(err => res.status(500).json({ message: "Could not retrieve clients; please try again later" }))
 })
 
-router.get('/:id', (req, res) => {
+router.get('/:id',restricted, (req, res) => {
     const { id } = req.params;
     db.findClientById(id)
         
@@ -52,7 +51,7 @@ router.get('/:id', (req, res) => {
         .catch(err => res.status(500).json({ message: "Could not retrieve client; please try again later" }))
 })
 
-router.put('/:id', (req, res) => {
+router.put('/:id',restricted, (req, res) => {
     const { id } = req.params
     const client = req.body;
     const validateResult = validateClient(client)
@@ -73,7 +72,7 @@ router.put('/:id', (req, res) => {
     }
 })
 
-router.delete('/:id', (req, res) =>{
+router.delete('/:id',restricted, (req, res) =>{
     const { id } = req.params;
     db.removeClient(id)
     .then(clients => {

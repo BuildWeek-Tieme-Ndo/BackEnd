@@ -5,6 +5,7 @@ const cors = require('cors');
 
 const usersRouter = require('./routers/users-router');
 const clientsRouter = require('./routers/clients-router');
+const loansRouter = require('./routers/loans-router');
 
 //server
 const server = express();
@@ -17,6 +18,7 @@ server.use(cors());
 //routes
 server.use('/api', usersRouter);
 server.use('/api/auth/clients', clientsRouter)
+server.use('/api/auth/loans', loansRouter)
 
 //server test
 server.get('/', (req, res) => {
