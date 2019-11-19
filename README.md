@@ -18,6 +18,8 @@
     
     This project is a hypothetical backend for an internal app;employees of Tieme Ndo could use
      the app to manage their clients and client loans in one location, easily accessible from anywhere. 
+     
+     The backend is hosted at https://tiemendo.herokuapp.com/
 
 ## Tables
 
@@ -26,8 +28,10 @@
 ### Onboarding Routes
 |     Route     |               Input Data               | Expected Return |
 | ------------- | -------------------------------------- | --------------- |
+
 | **POST** /api/register | {<br> name: 'required/unique',<br> password: 'required/unique', <br> email: 'required/unique'<br>} | {<br> status: 201 - Created, <br> message: success message<br>} |
 | **POST** /api/login | {<br> email: 'required',<br> password: 'required'<br>} | {<br> status: 200 - OK, <br> message: success message,<br>payload: token<br>} |
+
 
 ### Client Routes (Auth Token in Header Required)
 |     Route     |               Input Data               | Expected Return |
