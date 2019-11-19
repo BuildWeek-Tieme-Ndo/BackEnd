@@ -15,3 +15,23 @@ function validateClient(client) {
     errors
   };
 }
+
+function validateLoan(loan) {
+  let errors = [];
+  if (!loan.client_id) {
+    errors.push("Please provide the id of the client responsible for this loan");
+  }
+  if (!loan.loan_amt) {
+    errors.push("please provide the total loan amount");
+  }
+  if (!loan.init_date) {
+    errors.push("please provide the loan start date");
+  }
+  if (!loan.due_date) {
+    errors.push("please provide the loan due date");
+  }
+  return {
+    isSuccessful: errors.length > 0 ? false : true,
+    errors
+  };
+}
