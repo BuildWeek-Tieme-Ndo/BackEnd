@@ -4,7 +4,6 @@ const jwt = require("jsonwebtoken");
 //exports
 module.exports = {
   validateRegistration,
-  validateUser,
   getJwtToken
 };
 
