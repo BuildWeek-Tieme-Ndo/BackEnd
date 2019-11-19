@@ -34,7 +34,7 @@ router.get('/',restricted, (req, res) => {
         .then(clients => {
             clients
                 ? res.status(200).json(clients)
-                : res.status(404).json({ message: "Could not find any clients for this user" })
+                : res.status(404).json({ message: "Could not find any clients" })
         })
         .catch(err => res.status(500).json({ message: "Could not retrieve clients; please try again later" }))
 })
@@ -80,7 +80,7 @@ router.delete('/:id',restricted, (req, res) =>{
     })
     .catch(err => {
         console.log(err.toString());
-        res.status(500).json({ message: 'Failed to delete user', error: err})
+        res.status(500).json({ message: 'Failed to delete client', error: err})
     })
 })
 

@@ -1,6 +1,7 @@
 module.exports = {
   validateClient, 
-  validateLoan
+  validateLoan,
+  validatePayment
 }
 
 function validateClient(client) {
@@ -30,6 +31,23 @@ function validateLoan(loan) {
   }
   if (!loan.due_date) {
     errors.push("please provide the loan due date");
+  }
+  return {
+    isSuccessful: errors.length > 0 ? false : true,
+    errors
+  };
+}
+
+function validatePayment(payment) {
+  let errors = [];
+  if (!payment.loan_id) {
+    errors.push("Please provide the id of the associated loan");
+  }
+  if (!payment.payment_date) {
+    errors.push("please provide the payment date");
+  }
+  if (!payment.payment_amt) {
+    errors.push("please provide the payment amount");
   }
   return {
     isSuccessful: errors.length > 0 ? false : true,
