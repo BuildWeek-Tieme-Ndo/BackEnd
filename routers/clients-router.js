@@ -14,7 +14,7 @@ router.post('/', (req, res) => {
     if (validateResult.isSuccessful === true){
     db.insertClient(client)
       .then(client => {
-          res.status(200).json(client);
+          res.status(201).json(client);
       })
       .catch(err => {
           console.log(err.toString());
@@ -29,7 +29,7 @@ router.post('/', (req, res) => {
 })
 
 router.get('/', (req, res) => {
-    const ID = req.body.user_id;
+    const ID = req.body.id;
     db.findClient(ID)
         
         .then(clients => {

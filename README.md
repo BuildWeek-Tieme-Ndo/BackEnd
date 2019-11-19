@@ -28,6 +28,16 @@
 ### Onboarding Routes
 |     Route     |               Input Data               | Expected Return |
 | ------------- | -------------------------------------- | --------------- |
-| /api/register | {<br> name: 'required/unique',<br> password: 'required', <br> email: 'required/unique'<br>} | {<br> status: 201 - Created, <br> message: success message<br>} |
-| /api/login | {<br> email: 'required',<br> password: 'required'<br>} | {<br> status: 200 - OK, <br> message: success message,<br>payload: token<br>} |
 
+| **POST** /api/register | {<br> name: 'required/unique',<br> password: 'required/unique', <br> email: 'required/unique'<br>} | {<br> status: 201 - Created, <br> message: success message<br>} |
+| **POST** /api/login | {<br> email: 'required',<br> password: 'required'<br>} | {<br> status: 200 - OK, <br> message: success message,<br>payload: token<br>} |
+
+
+### Client Routes (Auth Token in Header Required)
+|     Route     |               Input Data               | Expected Return |
+| ---------------- | -------------------------------------- | --------------- |
+| **POST** /api/auth/clients | {<br>name: 'required, unique'<br>village: 'optional'<br>user_id:'required'<br>goal: 'optional'<br>harvest: 'optional'<br>} | {<br>status: 201 - Create<br>payload: newly added client<br>} |
+|**GET** /api/auth/clients | {<br>id: 'user id'<br>} | {<br>status: 200 - OK<br>payload: [array of clients]<br>} |
+| **GET** api/auth/clients/:id | N/A | {<br>status: 200 - OK<br>payload: client<br>} |
+|**PUT** api/auth/clients/:id | {<br>name: 'required, unique'<br>village: 'optional'<br>user_id:'required'<br>goal: 'optional'<br>harvest: 'optional'<br>} | {<br>status: 200 - OK<br>payload: client<br>} |
+| **DELETE** api/auth/clients/:id | N/A | {<br>status:200 - OK<br>message: success message<br>}
