@@ -55,7 +55,8 @@ router.post("/login", (req, res) => {
             .status(200)
             .json({
               message: `token delivery for ${user.name}!`,
-              payload: token
+              payload: token,
+              user: user
             });
         } else {
           res.status(401).json({ message: "Invalid Credentials" });
