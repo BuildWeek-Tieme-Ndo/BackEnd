@@ -50,5 +50,15 @@
 |**PUT** api/auth/loans/:id | {<br>client_id: 'required'<br>loan_amt: 'required'<br>init_date:'required'<br>due_date: 'required'<br>} | {<br>status: 200 - OK<br>payload: loan<br>} |
 | **DELETE** api/auth/loans/:id | N/A | {<br>status:200 - OK<br>message: success message<br>} |
 
+### Payment Routes (Auth Token in Header Required)
+|     Route     |               Input Data               | Expected Return |
+| ---------------- | -------------------------------------- | --------------- |
+| **POST** /api/auth/payments | {<br>loan_id: 'required'<br>payment_date: 'required'<br>payment_amt:'required'<br> | {<br>status: 201 - Create<br>payload: newly added payment<br>} |
+|**GET** /api/auth/payments | N/A | {<br>status: 200 - OK<br>payload: [array of payments]<br>} |
+| **GET** api/auth/payments/:id | N/A | {<br>status: 200 - OK<br>payload: payment<br>} |
+| **GET** api/auth/payments/by-loan/:id | N/A | {<br>status: 200 - OK<br>payload: [array of payments for specified loan]<br>} |
+|**PUT** api/auth/payments/:id | {<br>loan_id: 'required'<br>payment_date: 'required'<br>payment_amt:'required'<br> | {<br>status: 200 - OK<br>payload: payment<br>} |
+| **DELETE** api/auth/payments/:id | N/A | {<br>status:200 - OK<br>message: success message<br>} |
+
 
 
