@@ -33,7 +33,7 @@
 |     Route     |               Input Data               | Expected Return |
 | ---------------- | -------------------------------------- | --------------- |
 | **POST** /api/auth/clients | {<br>name: 'required, unique'<br>village: 'optional'<br>user_id:'required'<br>goal: 'optional'<br>harvest: 'optional'<br>} | {<br>status: 201 - Create<br>payload: newly added client<br>} |
-|**GET** /api/auth/clients | {<br>id: 'user id'<br>} | {<br>status: 200 - OK<br>payload: [array of clients]<br>} |
+|**GET** /api/auth/clients | N/A | {<br>status: 200 - OK<br>payload: [array of clients]<br>} |
 | **GET** api/auth/clients/:id | N/A | {<br>status: 200 - OK<br>payload: client<br>} |
 |**PUT** api/auth/clients/:id | {<br>name: 'required, unique'<br>village: 'optional'<br>user_id:'required'<br>goal: 'optional'<br>harvest: 'optional'<br>} | {<br>status: 200 - OK<br>payload: client<br>} |
 | **DELETE** api/auth/clients/:id | N/A | {<br>status:200 - OK<br>message: success message<br>}
