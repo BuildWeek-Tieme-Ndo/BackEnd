@@ -29,8 +29,7 @@ router.post('/', restricted, (req, res) => {
 })
 
 router.get('/',restricted, (req, res) => {
-    const ID = req.body.id;
-    db.findClient(ID)
+    db.findClient()
         
         .then(clients => {
             clients

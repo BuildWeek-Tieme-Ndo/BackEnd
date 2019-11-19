@@ -4,7 +4,7 @@ const db = require("../data/dbConfig");
 //export
 
 module.exports = {
-  findLoan,
+  findLoans,
   findLoanById,
   findLoanBy,
   insertLoan,

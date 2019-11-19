@@ -1,5 +1,6 @@
 module.exports = {
-  validateClient
+  validateClient, 
+  validateLoan
 }
 
 function validateClient(client) {
