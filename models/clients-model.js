@@ -13,9 +13,13 @@ module.exports = {
 };
 
 function findClient(user) {
+   const ID = user.userId;
+   console.log('ID', ID)
     return db('clients as c')
-              .join('users', 'c.user_id', 'users.id')
-              .select('c.id', 'c.name', 'c.village')
+              .join('users as u', 'c.user_id', 'u.id')
+              .select('c.id', 'u.id', 'c.name', 'c.village')
+              .where({ user_id: ID })
+              
 }
 
 function findClientById(id) {
@@ -28,7 +32,7 @@ function findClientBy(filter) {
 
 async function insertClient(client) {
     const [id] = await db('clients').insert(client, 'id');
-    return findById(id);
+    return findClientById(id);
 }
 
 function updateClient(id, client) {
