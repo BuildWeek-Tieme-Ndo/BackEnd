@@ -6,7 +6,7 @@ describe('server.js', () => {
         it('should return an OK status code', async () => {
             const expectedStatusCode = 200;
 
-            const respone = await request(server).get('/');
+            const response = await request(server).get('/');
             expect(response.status).toEqual(expectedStatusCode);
         });
         it('should return an object as the body', async () => {
@@ -20,6 +20,7 @@ describe('server.js', () => {
             const response = await request(server).get('/');
             
             expect(response.type).toEqual('application/json');
+
         })
         })
 })
