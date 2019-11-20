@@ -76,111 +76,158 @@ describe("clientsRouter", () => {
     });
   });
   //GET to '/api/auth/clients/:id'
-
+  //test that it returns 404 against test database, since there is no client with that id
   describe("GET /:id", function() {
-    it("should return 200 - OK", async () => {
-      const expectedStatusCode = 200;
-
-      const response = await request(server)
-        .get("/api/auth/clients")
-        .set("Authorization", token);
-
-      expect(response.status).toEqual(expectedStatusCode);
+    it("should return 404 - NOT FOUND", function() {
+      beforeEach(async () => {
+        await db("clients").truncate();
+        request(server)
+          .post("/api/auth/clients/")
+          .set("Authorization", token)
+          .send({
+            name: "Mohammed Clark-Smith",
+            village: "Bolgatanga",
+            user_id: 2,
+            goal: "2 MT Maize Annual",
+            harvest: "3 MT"
+          });
+      });
+      return request(server)
+        .get("/api/auth/clients/10")
+        .set("Authorization", token)
+        .then(res => {
+          expect(res.status).toBe(404);
+        });
     });
 
     it("should return JSON formatted response", async () => {
-      const response = await request(server)
-        .get("/api/auth/clients")
+      beforeEach(async () => {
+        await db("clients").truncate();
+        request(server)
+          .post("/api/auth/clients/")
+          .set("Authorization", token)
+          .send({
+            name: "Mohammed Clark-Smith",
+            village: "Bolgatanga",
+            user_id: 2,
+            goal: "2 MT Maize Annual",
+            harvest: "3 MT"
+          });
+      });
+
+      return request(server)
+        .get("/api/auth/clients/1")
         .set("Authorization", token);
 
       expect(response.type).toEqual("application/json");
     });
   });
-  //PUT to '/api/auth/clients/:id'
-  describe("PUT /:id", function() {
-    it("should return 200 - OK", function() {
-      beforeEach(async () => {
-        await db("clients").truncate();
-        request(server)
-          .post("/api/auth/clients/")
+    //PUT to '/api/auth/clients/:id'
+    describe("PUT /:id", function() {
+      it("should return 200 - OK", function() {
+        beforeEach(async () => {
+          await db("clients").truncate();
+          request(server)
+            .post("/api/auth/clients/")
+            .set("Authorization", token)
+            .send({
+              name: "Mohammed Clark-Smith",
+              village: "Bolgatanga",
+              user_id: 2,
+              goal: "2 MT Maize Annual",
+              harvest: "3 MT"
+            });
+        });
+        return request(server)
+          .put("/api/auth/clients/1")
           .set("Authorization", token)
           .send({
             name: "Mohammed Clark-Smith",
-            village: "Bolgatanga",
+            village: "test",
             user_id: 2,
             goal: "2 MT Maize Annual",
             harvest: "3 MT"
+          })
+          .then(res => {
+            expect(res.status).toBe(200);
           });
       });
-      return request(server)
-        .put("/api/auth/clients/1")
-        .set("Authorization", token)
-        .send({
-          name: "Mohammed Clark-Smith",
-          village: "test",
-          user_id: 2,
-          goal: "2 MT Maize Annual",
-          harvest: "3 MT"
-        })
-        .then(res => {
-          expect(res.status).toBe(200);
-        });
-    });
 
-    it("should return JSON formatted response", function() {
-      beforeEach(async () => {
-        await db("clients").truncate();
-        request(server)
-          .post("/api/auth/clients/")
+      it("should return JSON formatted response", function() {
+        beforeEach(async () => {
+          await db("clients").truncate();
+          request(server)
+            .post("/api/auth/clients/")
+            .set("Authorization", token)
+            .send({
+              name: "Mohammed Clark-Smith",
+              village: "Bolgatanga",
+              user_id: 2,
+              goal: "2 MT Maize Annual",
+              harvest: "3 MT"
+            });
+        });
+        return request(server)
+          .put("/api/auth/clients/1")
           .set("Authorization", token)
           .send({
             name: "Mohammed Clark-Smith",
-            village: "Bolgatanga",
+            village: "test",
             user_id: 2,
             goal: "2 MT Maize Annual",
             harvest: "3 MT"
+          })
+          .then(res => {
+            expect(res.type).toEqual("application/json");
           });
       });
-      return request(server)
-        .put("/api/auth/clients/1")
-        .set("Authorization", token)
-        .send({
-          name: "Mohammed Clark-Smith",
-          village: "test",
-          user_id: 2,
-          goal: "2 MT Maize Annual",
-          harvest: "3 MT"
-        })
-        .then(res => {
-          expect(res.type).toEqual("application/json");
+    });
+    //DELETE to '/api/auth/clients/:id'
+    describe("DELETE /", function() {
+      it("should return 200 - OK", async () => {
+        beforeEach(async () => {
+          await db("clients").truncate();
+          request(server)
+            .post("/api/auth/clients/")
+            .set("Authorization", token)
+            .send({
+              name: "Mohammed Clark-Smith",
+              village: "Bolgatanga",
+              user_id: 2,
+              goal: "2 MT Maize Annual",
+              harvest: "3 MT"
+            });
         });
+        const expectedStatusCode = 200;
+
+        const response = await request(server)
+          .delete("/api/auth/clients/1")
+          .set("Authorization", token);
+
+        expect(response.status).toEqual(expectedStatusCode);
+      });
+
+      it("should return JSON formatted response", function() {
+        beforeEach(async () => {
+          await db("clients").truncate();
+          request(server)
+            .post("/api/auth/clients/")
+            .set("Authorization", token)
+            .send({
+              name: "Mohammed Clark-Smith",
+              village: "Bolgatanga",
+              user_id: 2,
+              goal: "2 MT Maize Annual",
+              harvest: "3 MT"
+            });
+          const response = await request(server)
+            .delete("/api/auth/clients/1")
+            .set("Authorization", token)
+            .then(res => {
+              expect(res.type).toEqual("application/json");
+            });
+        });
+      });
     });
   });
-  //DELETE to '/api/auth/clients/:id'
-  describe("DELETE /", function() {
-    it("should return 200 - OK", async () => {
-      beforeEach(async () => {
-        await db("clients").truncate();
-        request(server)
-          .post("/api/auth/clients/")
-          .set("Authorization", token)
-          .send({
-            name: "Mohammed Clark-Smith",
-            village: "Bolgatanga",
-            user_id: 2,
-            goal: "2 MT Maize Annual",
-            harvest: "3 MT"
-          });
-      });
-      const expectedStatusCode = 200;
 
-      const response = await request(server)
-        .delete("/api/auth/clients/1")
-        .set("Authorization", token);
-
-      expect(response.status).toEqual(expectedStatusCode);
-    });
-
-    it("should return JSON formatted response", function() {});
-  });
-});

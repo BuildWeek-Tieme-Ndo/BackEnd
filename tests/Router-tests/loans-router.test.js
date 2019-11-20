@@ -10,7 +10,7 @@ const db = require("../../data/dbConfig");
 //token
 const token = getJwtToken("test@test.com");
 
-//Loans
+//CLIENTS
 
 describe("loansRouter", () => {
   //POST to '/api/auth/loans'
@@ -25,8 +25,8 @@ describe("loansRouter", () => {
         .send({
           client_id: 1,
           loan_amt: 500,
-          init_date:'11/11/11',
-          due_date: '12/12/12'
+          init_date: "01/15/2019",
+          due_date: "02/15/2020"
         })
         .then(res => {
           expect(res.status).toBe(201);
@@ -35,17 +35,16 @@ describe("loansRouter", () => {
 
     it("should return JSON formatted response", function() {
       beforeEach(async () => {
-        await db("clients").truncate();
+        await db("loans").truncate();
       });
       return request(server)
-        .post("/api/auth/clients")
+        .post("/api/auth/loans")
         .set("Authorization", token)
         .send({
-          name: "Mohammed Clark-Smith",
-          village: "Bolgatanga",
-          user_id: 2,
-          goal: "2 MT Maize Annual",
-          harvest: "3 MT"
+          client_id: 1,
+          loan_amt: 500,
+          init_date: "01/15/2019",
+          due_date: "02/15/2020"
         })
         .then(res => {
           expect(res.type).toMatch(/json/i);
@@ -53,14 +52,14 @@ describe("loansRouter", () => {
     });
   });
 
-  //GET to '/api/auth/clients'
+  //GET to '/api/auth/loans'
 
   describe("GET /", function() {
     it("should return 200 - OK", async () => {
       const expectedStatusCode = 200;
 
       const response = await request(server)
-        .get("/api/auth/clients")
+        .get("/api/auth/loans")
         .set("Authorization", token);
 
       expect(response.status).toEqual(expectedStatusCode);
@@ -68,58 +67,81 @@ describe("loansRouter", () => {
 
     it("should return JSON formatted response", async () => {
       const response = await request(server)
-        .get("/api/auth/clients")
+        .get("/api/auth/loans")
         .set("Authorization", token);
 
       expect(response.type).toEqual("application/json");
     });
   });
-  //GET to '/api/auth/clients/:id'
-
+  //GET to '/api/auth/loans/:id'
+  //check that it returns 404 against test database, since there is no loan with that id
   describe("GET /:id", function() {
-    it("should return 200 - OK", async () => {
-      const expectedStatusCode = 200;
+    it("should return 404 - NOT FOUND", async () => {
+      const expectedStatusCode = 404;
+      // beforeEach(async () => {
+      //   await db("loans").truncate();
+      //   request(server)
+      //     .post("/api/auth/loans/")
+      //     .set("Authorization", token)
+      //     .send({
+      //       client_id: 1,
+      //           loan_amt: 500,
+      //           init_date: "01/15/2019",
+      //           due_date: "02/15/2020"
+      //     });
+      // });
 
       const response = await request(server)
-        .get("/api/auth/clients")
+        .get("/api/auth/loans/1")
         .set("Authorization", token);
 
       expect(response.status).toEqual(expectedStatusCode);
     });
 
     it("should return JSON formatted response", async () => {
-      const response = await request(server)
-        .get("/api/auth/clients")
+      beforeEach(async () => {
+        await db("loans").truncate();
+        request(server)
+          .post("/api/auth/loans/")
+          .set("Authorization", token)
+          .send({
+            client_id: 1,
+            loan_amt: 500,
+            init_date: "01/15/2019",
+            due_date: "02/15/2020"
+          });
+      });
+
+      return request(server)
+        .get("/api/auth/loans/1")
         .set("Authorization", token);
 
       expect(response.type).toEqual("application/json");
     });
   });
-  //PUT to '/api/auth/clients/:id'
+  //PUT to '/api/auth/loans/:id'
   describe("PUT /:id", function() {
     it("should return 200 - OK", function() {
       beforeEach(async () => {
-        await db("clients").truncate();
+        await db("loans").truncate();
         request(server)
-          .post("/api/auth/clients/")
+          .post("/api/auth/loans/")
           .set("Authorization", token)
           .send({
-            name: "Mohammed Clark-Smith",
-            village: "Bolgatanga",
-            user_id: 2,
-            goal: "2 MT Maize Annual",
-            harvest: "3 MT"
+            client_id: 1,
+            loan_amt: 500,
+            init_date: "01/15/2019",
+            due_date: "02/15/2020"
           });
       });
       return request(server)
-        .put("/api/auth/clients/1")
+        .put("/api/auth/loans/1")
         .set("Authorization", token)
         .send({
-          name: "Mohammed Clark-Smith",
-          village: "test",
-          user_id: 2,
-          goal: "2 MT Maize Annual",
-          harvest: "3 MT"
+          client_id: 1,
+          loan_amt: 500,
+          init_date: "01/15/2019",
+          due_date: "02/15/2020"
         })
         .then(res => {
           expect(res.status).toBe(200);
@@ -128,58 +150,74 @@ describe("loansRouter", () => {
 
     it("should return JSON formatted response", function() {
       beforeEach(async () => {
-        await db("clients").truncate();
+        await db("loans").truncate();
         request(server)
-          .post("/api/auth/clients/")
+          .post("/api/auth/loans/")
           .set("Authorization", token)
           .send({
-            name: "Mohammed Clark-Smith",
-            village: "Bolgatanga",
-            user_id: 2,
-            goal: "2 MT Maize Annual",
-            harvest: "3 MT"
+            client_id: 1,
+            loan_amt: 500,
+            init_date: "01/15/2019",
+            due_date: "02/15/2020"
           });
       });
       return request(server)
-        .put("/api/auth/clients/1")
+        .put("/api/auth/loans/1")
         .set("Authorization", token)
         .send({
-          name: "Mohammed Clark-Smith",
-          village: "test",
-          user_id: 2,
-          goal: "2 MT Maize Annual",
-          harvest: "3 MT"
+          client_id: 1,
+          loan_amt: 500,
+          init_date: "01/15/2019",
+          due_date: "02/15/2020"
         })
         .then(res => {
           expect(res.type).toEqual("application/json");
         });
     });
   });
-  //DELETE to '/api/auth/clients/:id'
+  //DELETE to '/api/auth/loans/:id'
   describe("DELETE /", function() {
     it("should return 200 - OK", async () => {
-       beforeEach(async () => {
-        await db("clients").truncate();
+      beforeEach(async () => {
+        await db("loans").truncate();
         request(server)
-          .post("/api/auth/clients/")
+          .post("/api/auth/loans/")
           .set("Authorization", token)
           .send({
-            name: "Mohammed Clark-Smith",
-            village: "Bolgatanga",
-            user_id: 2,
-            goal: "2 MT Maize Annual",
-            harvest: "3 MT"
+            client_id: 1,
+            loan_amt: 500,
+            init_date: "01/15/2019",
+            due_date: "02/15/2020"
           });
       });
       const expectedStatusCode = 200;
 
       const response = await request(server)
-        .delete("/api/auth/clients/1")
+        .delete("/api/auth/loans/1")
         .set("Authorization", token);
 
       expect(response.status).toEqual(expectedStatusCode);
     });
 
-    it("should return JSON formatted response", function() {});
+    it("should return JSON formatted response", function() {
+      beforeEach(async () => {
+        await db("loans").truncate();
+        request(server)
+          .post("/api/auth/loans/")
+          .set("Authorization", token)
+          .send({
+            client_id: 1,
+            loan_amt: 500,
+            init_date: "01/15/2019",
+            due_date: "02/15/2020"
+          });
+        const response = await request(server)
+          .delete("/api/auth/loans/1")
+          .set("Authorization", token)
+          .then(res => {
+            expect(res.type).toEqual("application/json");
+          });
+      });
+    });
   });
 });
