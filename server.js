@@ -24,8 +24,8 @@ server.use('/api/auth/payments', paymentsRouter)
 
 //server test
 server.get('/', (req, res) => {
-    res.send('testing')
-})
+    res.status(200).json({message: 'sanity check passed'})
+});
 
 //export
 module.exports = server;
