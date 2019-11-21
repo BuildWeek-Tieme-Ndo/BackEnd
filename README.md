@@ -22,7 +22,7 @@
      The backend is hosted at https://tiemendo.herokuapp.com/
 
 ## Tables
-
+![tables.jpg](./tables.jpg)
 ## Routes
 
 ### Onboarding Routes
